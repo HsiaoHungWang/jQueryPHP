@@ -133,7 +133,8 @@
                       //data 就是Server回傳的結果
                     // {"success":true,"errorMessage":"","postData":[]}
                       if(data.success){
-                        alert("新增成功")
+                        alert("新增成功");
+                        ShowUsers();
                       }else{
                         alert(data.errorMessage);
                       }
@@ -153,7 +154,7 @@
                 // localStorage.setItem("users", JSON.stringify(users));
 
                 //重新將JSON中的資料載入到網頁上
-                ShowUsers();
+              
                 //隱藏Modal
                 $('#userModal').modal('hide');
 
@@ -177,12 +178,19 @@
 
             //顯示資料
             function ShowUsers() {
+               //透過Ajax讀取Users資料
+               $.ajax({
+                url:'UserSelectApi.php',
+               type:'GET',
+               dataType:'json'
+               }).done(function(users){
+             
                 const docFrag = $(document.createDocumentFragment()); //建立一個空的物件
                 $.each(users, function (idx, user) {
-                    const { name, email, age } = user;
+                    const { id, name, email, age } = user;
                     const data = `
                        <tr>
-                            <td>${idx + 1}</td>
+                            <td>${id}</td>
                             <td>${name}</td>
                             <td>${email}</td>
                             <td>${age}</td>
@@ -196,6 +204,12 @@
                 })
 
                 $('#userTable>tbody').html(docFrag);
+
+
+
+
+
+               })
             }
 
             ShowUsers();
