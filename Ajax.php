@@ -34,9 +34,13 @@
                 //    $('#div1').html(`<h2>${data}</h2>`)
                 //  })
 
-                $.post('Api.php',{"name":"John"},function(data){
-                   $('#div1').html(`<h2>${data}</h2>`)
-                 })
+                // $.post('Api.php',{"name":"John"},function(data){
+                //    $('#div1').html(`<h2>${data}</h2>`)
+                //  })
+
+                $.getJSON('First.php',function(datas){                    
+                    console.log(datas);
+                })
             })
         })
     </script>
