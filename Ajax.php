@@ -38,8 +38,19 @@
                 //    $('#div1').html(`<h2>${data}</h2>`)
                 //  })
 
-                $.getJSON('First.php',function(datas){                    
-                    console.log(datas);
+                // $.getJSON('First.php',function(datas){                    
+                //     console.log(datas);
+                // })
+
+
+                $.ajax({
+                    url:'First.php',
+                    type:'GET', //POST、PUT、DELETE
+                   // data:{"name":"Steve"},
+                    dataType:'json', //json、xml、html
+                }).done(function(data){
+                   // $('#div1').html(`<h2>${data}</h2>`)
+                   console.log(data);
                 })
             })
         })
