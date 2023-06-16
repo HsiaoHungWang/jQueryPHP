@@ -1,15 +1,30 @@
 <?php
 require __DIR__ . '/shares/connection.php';
-//header('Content-Type:application/json');
+header('Content-Type:application/json');
 
-$sql = "INSERT INTO `users`(`name`, `email`, `age`) VALUES ('Tom','Tom@gmail.com','27')";
+$output = [
+    'success' => false,
+    'errorMessage' => '',
+    'postData' => $_POST
+];
+
+
+
+$sql = "INSERT INTO `users`(`name`, `email`, `age`) VALUES (?,?,?)";
 $stmt = $pdo->prepare($sql);
-$stmt->execute();
+$stmt->execute([
+    $_POST['name'],
+    $_POST['email'],
+    $_POST['age'],
+
+]);
 
 if($stmt->rowCount() == 1){
-    echo "新增成功";
+    $output['success'] = true;
 }else{
-    echo "新增失敗";
+    $output['errorMessage'] = "新增失敗";
 }
+
+echo json_encode($output, JSON_UNESCAPED_UNICODE);
 
 ?>

@@ -124,13 +124,19 @@
 
                     //將資料存進資料庫中
                     $.ajax({
-                        url:'??.php', //將資料傳給這支PHP的程式
+                        url:'UserInsertApi.php', //將資料傳給這支PHP的程式
                         type:'POST', //透過POST的方法傳送資料
                         data:user,   //傳送到Server端的資料
                         dataType:'json' //Server回傳的結果為JSON格式
                     }).done(function(data){
+                        
                       //data 就是Server回傳的結果
-                      console.log(data);
+                    // {"success":true,"errorMessage":"","postData":[]}
+                      if(data.success){
+                        alert("新增成功")
+                      }else{
+                        alert(data.errorMessage);
+                      }
                     })
 
 
@@ -210,7 +216,6 @@
                     $('#buttonUpdate').text("修改")
                     $('#userModalLabel').text("使用者修改");
                 }
-
 
             })
 
