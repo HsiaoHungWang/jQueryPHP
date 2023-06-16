@@ -75,7 +75,8 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script>
         //$(document).ready(function(){ })
         //DOM Tree產生可以使用了
         $(function () {
@@ -141,7 +142,8 @@
                       //data 就是Server回傳的結果
                     // {"success":true,"errorMessage":"","postData":[]}
                       if(data.success){
-                        alert("新增成功");
+                       // alert("新增成功");
+                       Swal.fire('新增成功')
                         ShowUsers();
                       }else{
                         alert(data.errorMessage);
@@ -158,7 +160,8 @@
                         dataType:'json'
                     }).done(function(data){
                         if(data.success){
-                            alert("修改成功");
+                           // alert("修改成功");
+                            Swal.fire('修改成功')
                             ShowUsers();
                         }else{
                             alert(data.errorMessage)
@@ -180,21 +183,58 @@
 
             //刪除資料
             $('#userTable>tbody').on('click', 'button:nth-child(2)', function () {
-                const id = $(this).parents('tr').children('td:nth-child(1)').text();
 
-                $.ajax({
-                    url:'UserDeleteApi.php',
-                    type:'GET',
-                    data:{"id":id},
-                    dataType:'json'
-                }).done(function(data){
-                    if(data.success){
-                        alert("刪除成功");
-                        ShowUsers();
-                    }else{
-                        alert("刪除失敗");
-                    }
+
+                Swal.fire({
+                    title: '真的要刪除嗎?',
+                    showDenyButton: true,                    
+                    confirmButtonText: '確定',
+                    denyButtonText: `取消`,
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    const id = $(this).parents('tr').children('td:nth-child(1)').text();
+
+                    $.ajax({
+                        url:'UserDeleteApi.php',
+                        type:'GET',
+                        data:{"id":id},
+                        dataType:'json'
+                    }).done(function(data){
+                        if(data.success){
+                        // alert("刪除成功");
+                        Swal.fire('刪除成功')
+                            ShowUsers();
+                        }else{
+                            alert("刪除失敗");
+                        }
+                    })
+                } else if (result.isDenied) {
+                   // Swal.fire('Changes are not saved', '', 'info')
+                }
                 })
+
+                
+            //    if(window.confirm("真的要刪除嗎?")){
+            //     const id = $(this).parents('tr').children('td:nth-child(1)').text();
+
+            //         $.ajax({
+            //             url:'UserDeleteApi.php',
+            //             type:'GET',
+            //             data:{"id":id},
+            //             dataType:'json'
+            //         }).done(function(data){
+            //             if(data.success){
+            //             // alert("刪除成功");
+            //             Swal.fire('刪除成功')
+            //                 ShowUsers();
+            //             }else{
+            //                 alert("刪除失敗");
+            //             }
+            //         })
+            //    }else{
+            //     return false;
+            //    }
                
               
                 

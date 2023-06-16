@@ -7,7 +7,10 @@ $sql = "SELECT ProductName FROM `products` WHERE ProductName LIKE ? LIMIT 10";
 //? => '%ch%'
 
 $stmt = $pdo->prepare($sql);
-$stmt->execute(['%' . $_GET['term'] . '%']); 
+
+$keyword = isset($_GET['term']) ? $_GET['term'] : '';
+
+$stmt->execute(['%' . $keyword . '%']); 
 $rows = $stmt->fetchAll(); 
 foreach($rows as $row){
     $array[] = $row['ProductName'];
