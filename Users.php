@@ -18,6 +18,7 @@
                 <h2>jQuery 練習</h2>
                 <button id="buttonAdd" class="btn btn-primary mb-3" data-bs-toggle="modal"
                     data-bs-target="#userModal">新增</button>
+                    <img id="img1" src="images/loading.gif" style="width:50px;display:none">
                 <table id="userTable" class="table table-bordered">
                     <thead>
                         <tr>
@@ -256,7 +257,14 @@
 
 
 
-
+$(document).on({
+    'ajaxStart':function(){
+        $('#img1').show();
+    },
+    'ajaxStop':function(){
+        $('#img1').hide();
+    }
+})
 
 
 

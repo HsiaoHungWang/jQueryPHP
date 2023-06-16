@@ -8,7 +8,7 @@ $output = [
     'data' => $_POST
 ];
 
-
+sleep(5);
 
 $sql = "INSERT INTO `users`(`name`, `email`, `age`) VALUES (?,?,?)";
 $stmt = $pdo->prepare($sql);
