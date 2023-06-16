@@ -164,16 +164,24 @@
 
             //刪除資料
             $('#userTable>tbody').on('click', 'button:nth-child(2)', function () {
-                const idx = $(this).parents('tr').children('td:nth-child(1)').text() - 1;
-                users.splice(idx, 1);  //只刪除資料，介面上的內容還在
+                const id = $(this).parents('tr').children('td:nth-child(1)').text();
 
-                //更新localStorage中的資料
-                localStorage.setItem("users", JSON.stringify(users));
-
-                //重新將JSON中的資料載入到網頁上
-                ShowUsers();
-                //$(this).parents('tr').remove(); //只刪除介面上顯示的內容，資料還在
-                //console.log(users);
+                $.ajax({
+                    url:'UserDeleteApi.php',
+                    type:'GET',
+                    data:{"id":id},
+                    dataType:'json'
+                }).done(function(data){
+                    if(data.success){
+                        alert("刪除成功");
+                        ShowUsers();
+                    }else{
+                        alert("刪除失敗");
+                    }
+                })
+               
+              
+                
             })
 
             //顯示資料
@@ -181,8 +189,8 @@
                //透過Ajax讀取Users資料
                $.ajax({
                 url:'UserSelectApi.php',
-               type:'GET',
-               dataType:'json'
+                type:'GET',
+                dataType:'json'
                }).done(function(users){
              
                 const docFrag = $(document.createDocumentFragment()); //建立一個空的物件

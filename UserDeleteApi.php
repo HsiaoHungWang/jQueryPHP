@@ -5,24 +5,18 @@ header('Content-Type:application/json');
 $output = [
     'success' => false,
     'errorMessage' => '',
-    'data' => $_POST
+    'data' => $_GET
 ];
 
 
-
-$sql = "INSERT INTO `users`(`name`, `email`, `age`) VALUES (?,?,?)";
+$sql = "DELETE FROM `users` WHERE id=?";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([
-    $_POST['name'],
-    $_POST['email'],
-    $_POST['age'],
-
-]);
+$stmt->execute([$_GET["id"]]);
 
 if($stmt->rowCount() == 1){
     $output['success'] = true;
 }else{
-    $output['errorMessage'] = "新增失敗";
+    $output['errorMessage'] = "刪除失敗";
 }
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
