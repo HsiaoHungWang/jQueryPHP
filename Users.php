@@ -120,7 +120,22 @@
                 const user = { "name": $('#name').val(), "email": $('#email').val(), "age": $('#age').val() };
                 if (idx === "") {
                     //console.log("新增")
-                    users.push(user);
+                  //  users.push(user);
+
+                    //將資料存進資料庫中
+                    $.ajax({
+                        url:'??.php', //將資料傳給這支PHP的程式
+                        type:'POST', //透過POST的方法傳送資料
+                        data:user,   //傳送到Server端的資料
+                        dataType:'json' //Server回傳的結果為JSON格式
+                    }).done(function(data){
+                      //data 就是Server回傳的結果
+                      console.log(data);
+                    })
+
+
+
+
                 } else {
                     //  console.log("修改")
                     //修改JSON中的資料
@@ -129,7 +144,7 @@
                 }
 
                 //更新localStorage中的資料
-                localStorage.setItem("users", JSON.stringify(users));
+                // localStorage.setItem("users", JSON.stringify(users));
 
                 //重新將JSON中的資料載入到網頁上
                 ShowUsers();
