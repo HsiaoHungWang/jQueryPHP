@@ -45,19 +45,19 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="userForm">
                             <div class="mb-3">
-                                <input type="hidden" id="id">
+                                <input type="hidden" id="id" name="id">
                                 <label for="name" class="col-form-label">姓名:</label>
-                                <input type="text" class="form-control" id="name">
+                                <input type="text" class="form-control" name="name" id="name">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="col-form-label">電子郵件:</label>
-                                <input type="text" class="form-control" id="email">
+                                <input type="text" class="form-control" name="email" id="email">
                             </div>
                             <div class="mb-3">
                                 <label for="age" class="col-form-label">年紀:</label>
-                                <input type="text" class="form-control" id="age">
+                                <input type="text" class="form-control" name="age" id="age">
                             </div>
                         </form>
                     </div>
@@ -118,7 +118,13 @@
                 let idx = $('#id').val();
 
                 //將使用者修改的資料包裝成user物件
-                const user = {"id":$('#id').val(), "name": $('#name').val(), "email": $('#email').val(), "age": $('#age').val() };
+                // const user = {
+                //     "id":$('#id').val(), 
+                //     "name": $('#name').val(), 
+                //     "email": $('#email').val(), 
+                //     "age": $('#age').val() 
+                // };
+
                 if (idx === "") {
                     //console.log("新增")
                   //  users.push(user);
@@ -127,7 +133,8 @@
                     $.ajax({
                         url:'UserInsertApi.php', //將資料傳給這支PHP的程式
                         type:'POST', //透過POST的方法傳送資料
-                        data:user,   //傳送到Server端的資料
+                       // data:user,   //傳送到Server端的資料
+                       data:$('#userForm').serializeArray(),
                         dataType:'json' //Server回傳的結果為JSON格式
                     }).done(function(data){
                         
@@ -149,7 +156,8 @@
                     $.ajax({
                         url:'UserUpdateApi.php',
                         type:'POST',
-                        data:user,
+                        // data:user,
+                        data: $('#userForm').serializeArray(),
                         dataType:'json'
                     }).done(function(data){
                         if(data.success){
