@@ -30,7 +30,11 @@
     <script>
         $(function () {
             $('#buttonAjax').on('click',function(){
-                 $.get('Api.php',{"name":"Maggie"},function(data){
+                //  $.get('Api.php',{"name":"Maggie"},function(data){
+                //    $('#div1').html(`<h2>${data}</h2>`)
+                //  })
+
+                $.post('Api.php',{"name":"John"},function(data){
                    $('#div1').html(`<h2>${data}</h2>`)
                  })
             })
