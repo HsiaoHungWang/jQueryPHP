@@ -18,9 +18,9 @@
             <div class="col-8">
                 <h2>jQuery 練習</h2>
                 <div class="ui-widget">
-  <label for="tags">Tags: </label>
-  <input id="tags">
-</div>
+                    <label for="tags">Tags: </label>
+                    <input id="tags">
+                </div>
             </div>
             <div class="col-2"></div>
         </div>
@@ -33,32 +33,9 @@
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script>
         $(function () {
-            var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
+          
     $( "#tags" ).autocomplete({
-      source: availableTags
+      source: 'Search.php'
     });
         })
     </script>
