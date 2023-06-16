@@ -117,7 +117,7 @@
                 let idx = $('#id').val();
 
                 //將使用者修改的資料包裝成user物件
-                const user = { "name": $('#name').val(), "email": $('#email').val(), "age": $('#age').val() };
+                const user = {"id":$('#id').val(), "name": $('#name').val(), "email": $('#email').val(), "age": $('#age').val() };
                 if (idx === "") {
                     //console.log("新增")
                   //  users.push(user);
@@ -145,9 +145,19 @@
 
                 } else {
                     //  console.log("修改")
-                    //修改JSON中的資料
-                    //JSON中第幾筆資料需要修改
-                    users.splice(idx - 1, 1, user);
+                    $.ajax({
+                        url:'UserUpdateApi.php',
+                        type:'POST',
+                        data:user,
+                        dataType:'json'
+                    }).done(function(data){
+                        if(data.success){
+                            alert("修改成功");
+                            ShowUsers();
+                        }else{
+                            alert(data.errorMessage)
+                        }
+                    })
                 }
 
                 //更新localStorage中的資料
@@ -194,6 +204,9 @@
                }).done(function(users){
              
                 const docFrag = $(document.createDocumentFragment()); //建立一個空的物件
+                //user = {"name":"Jack","age":30}
+                //user.name
+                //user.age
                 $.each(users, function (idx, user) {
                     const { id, name, email, age } = user;
                     const data = `
